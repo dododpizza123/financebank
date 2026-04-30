@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-header">
+      <i class="fa-solid fa-shield-halved"></i>
+      <span>Панель управления</span>
+    </div>
+    <nav class="admin-nav">
+      <a href="{{ url_for('admin_dashboard') }}" class="admin-nav-link {% if request.endpoint == 'admin_dashboard' %}active{% endif %}">
+        <i class="fa-solid fa-gauge"></i> Дашборд
+      </a>
+      <a href="{{ url_for('admin_articles') }}" class="admin-nav-link {% if 'article' in request.endpoint %}active{% endif %}">
+        <i class="fa-solid fa-file-alt"></i> Статьи
+      </a>
+      <a href="{{ url_for('admin_users') }}" class="admin-nav-link {% if 'user' in request.endpoint %}active{% endif %}">
+        <i class="fa-solid fa-users"></i> Пользователи
+      </a>
+      <a href="{{ url_for('admin_messages') }}" class="admin-nav-link {% if request.endpoint == 'admin_messages' %}active{% endif %}">
+        <i class="fa-solid fa-inbox"></i> Сообщения
+        {% set unread = unread_count %}
+        {% if unread %}
+          <span class="badge-count">{{ unread }}</span>
+        {% endif %}
+      </a>
+      <hr class="admin-divider">
+      <a href="{{ url_for('index') }}" class="admin-nav-link">
+        <i class="fa-solid fa-arrow-left"></i> На сайт
+      </a>
+    </nav>
+  </aside>
+  <div class="admin-main">
+    {% block admin_content %}{% endblock %}
+  </div>
+</div>
+{% endblock %}

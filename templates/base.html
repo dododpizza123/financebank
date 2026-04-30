@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="standard">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}ФинансБанк{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ACCESSIBILITY BAR -->
+<div class="access-bar">
+  <div class="container access-inner">
+    <span class="access-label">Версия для слабовидящих:</span>
+    <button onclick="setTheme('standard')" class="acc-btn" title="Стандартная">A</button>
+    <button onclick="setTheme('accessible')" class="acc-btn acc-large" title="Для слабовидящих">A</button>
+    <button onclick="changeFontSize(-1)" class="acc-btn" title="Уменьшить шрифт">A–</button>
+    <button onclick="changeFontSize(1)" class="acc-btn" title="Увеличить шрифт">A+</button>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="{{ url_for('index') }}" class="logo">
+      <div class="logo-icon"><i class="fa-solid fa-landmark"></i></div>
+      <div class="logo-text">
+        <span class="logo-name">ФинансБанк</span>
+        <span class="logo-tagline">Ваш надёжный партнёр</span>
+      </div>
+    </a>
+
+    <div class="header-phone">
+      <a href="tel:88001234567"><i class="fa-solid fa-phone"></i> 8-800-123-45-67</a>
+      <small>Бесплатно, круглосуточно</small>
+    </div>
+
+    <div class="header-actions">
+      {% if g.user %}
+        {% if g.user.is_admin() %}
+          <a href="{{ url_for('admin_dashboard') }}" class="btn btn-sm btn-outline">
+            <i class="fa-solid fa-shield-halved"></i> Панель
+          </a>
+        {% endif %}
+        <a href="{{ url_for('profile') }}" class="btn btn-sm btn-ghost">
+          <i class="fa-solid fa-circle-user"></i> {{ g.user.username }}
+        </a>
+        <a href="{{ url_for('logout') }}" class="btn btn-sm btn-outline">Выйти</a>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="btn btn-sm btn-outline">Войти</a>
+        <a href="{{ url_for('register') }}" class="btn btn-sm btn-primary">Открыть счёт</a>
+      {% endif %}
+    </div>
+
+    <button class="burger" id="burgerBtn" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <nav class="main-nav" id="mainNav">
+    <div class="container nav-inner">
+      <ul class="nav-list">
+        <li><a href="{{ url_for('index') }}"    class="nav-link {% if request.endpoint == 'index'    %}active{% endif %}"><i class="fa-solid fa-house"></i> Главная</a></li>
+        <li><a href="{{ url_for('deposits') }}" class="nav-link {% if request.endpoint == 'deposits' %}active{% endif %}"><i class="fa-solid fa-piggy-bank"></i> Вклады</a></li>
+        <li><a href="{{ url_for('credits') }}"  class="nav-link {% if request.endpoint == 'credits'  %}active{% endif %}"><i class="fa-solid fa-credit-card"></i> Кредиты</a></li>
+        <li><a href="{{ url_for('services') }}" class="nav-link {% if request.endpoint == 'services' %}active{% endif %}"><i class="fa-solid fa-briefcase"></i> Услуги</a></li>
+        <li><a href="{{ url_for('news') }}"     class="nav-link {% if request.endpoint == 'news'     %}active{% endif %}"><i class="fa-solid fa-newspaper"></i> Новости</a></li>
+        <li><a href="{{ url_for('about') }}"    class="nav-link {% if request.endpoint == 'about'    %}active{% endif %}"><i class="fa-solid fa-building-columns"></i> О банке</a></li>
+        <li><a href="{{ url_for('contact') }}"  class="nav-link {% if request.endpoint == 'contact'  %}active{% endif %}"><i class="fa-solid fa-envelope"></i> Контакты</a></li>
+      </ul>
+      <form action="{{ url_for('search') }}" method="get" class="nav-search">
+        <input type="text" name="q" placeholder="Поиск…" value="{{ request.args.get('q','') }}">
+        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+    </div>
+  </nav>
+</header>
+
+<!-- FLASHES -->
+<div class="flash-wrap container">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for cat, msg in messages %}
+        <div class="alert alert-{{ cat }}">
+          <i class="fa-solid {% if cat=='success' %}fa-circle-check{% elif cat=='danger' %}fa-circle-exclamation{% elif cat=='warning' %}fa-triangle-exclamation{% else %}fa-circle-info{% endif %}"></i>
+          {{ msg }}
+          <button class="alert-close" onclick="this.parentElement.remove()">×</button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+</div>
+
+<main>{% block content %}{% endblock %}</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="{{ url_for('index') }}" class="logo logo-light">
+        <div class="logo-icon"><i class="fa-solid fa-landmark"></i></div>
+        <div class="logo-text">
+          <span class="logo-name">ФинансБанк</span>
+          <span class="logo-tagline">Ваш надёжный партнёр</span>
+        </div>
+      </a>
+      <p>Генеральная лицензия ЦБ РФ № 3147.<br>Вклады застрахованы в АСВ до 1 400 000 ₽.</p>
+      <div class="social-links">
+        <a href="#" aria-label="VK"><i class="fa-brands fa-vk"></i></a>
+        <a href="#" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+        <a href="#" aria-label="OK"><i class="fa-brands fa-odnoklassniki"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Продукты</h4>
+      <ul>
+        <li><a href="{{ url_for('deposits') }}">Вклады и депозиты</a></li>
+        <li><a href="{{ url_for('credits') }}">Потребительские кредиты</a></li>
+        <li><a href="{{ url_for('credits') }}">Ипотека</a></li>
+        <li><a href="{{ url_for('credits') }}">Кредитные карты</a></li>
+        <li><a href="{{ url_for('services') }}">Дебетовые карты</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Услуги</h4>
+      <ul>
+        <li><a href="{{ url_for('services') }}">Интернет-банк</a></li>
+        <li><a href="{{ url_for('services') }}">РКО для бизнеса</a></li>
+        <li><a href="{{ url_for('services') }}">Эквайринг</a></li>
+        <li><a href="{{ url_for('services') }}">Страхование</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Банк</h4>
+      <ul>
+        <li><a href="{{ url_for('about') }}">О банке</a></li>
+        <li><a href="{{ url_for('news') }}">Новости</a></li>
+        <li><a href="{{ url_for('contact') }}">Контакты</a></li>
+        <li><a href="{{ url_for('sitemap') }}">Карта сайта</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Контакты</h4>
+      <ul class="contacts-list">
+        <li><i class="fa-solid fa-phone"></i> <a href="tel:88001234567">8-800-123-45-67</a></li>
+        <li><i class="fa-solid fa-phone"></i> <a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+        <li><i class="fa-solid fa-envelope"></i> <a href="mailto:info@finansbank.ru">info@finansbank.ru</a></li>
+        <li><i class="fa-solid fa-location-dot"></i> Москва, ул. Тверская, 1</li>
+        <li><i class="fa-solid fa-clock"></i> Пн–Пт: 9:00–21:00</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <span>© 2026 ФинансБанк. Все права защищены.</span>
+      <span>Не является публичной офертой.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

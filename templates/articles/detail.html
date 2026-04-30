@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}{{ article.title }} — ФинансБанк{% endblock %}
+
+{% block content %}
+
+<section class="section">
+  <div class="container article-layout">
+    <main class="article-main">
+      <div class="breadcrumb">
+        <a href="{{ url_for('index') }}">Главная</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <a href="{{ url_for(article.section) }}">{{ {'deposits':'Вклады','credits':'Кредиты','services':'Услуги','news':'Новости','about':'О банке'}[article.section] }}</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>{{ article.title | truncate(40) }}</span>
+      </div>
+
+      <article class="article-full">
+        <header class="article-header">
+          <div class="article-meta">
+            <span><i class="fa-regular fa-calendar"></i> {{ article.created_at.strftime('%d.%m.%Y') }}</span>
+            <span><i class="fa-solid fa-user"></i> {{ article.author.username }}</span>
+            {% if not article.published %}
+              <span class="badge badge-warning">Черновик</span>
+            {% endif %}
+          </div>
+          <h1>{{ article.title }}</h1>
+        </header>
+        <div class="article-body">
+          {{ article.body | safe }}
+        </div>
+        <div class="article-footer-nav">
+          <a href="{{ url_for(article.section) }}" class="btn btn-outline">
+            <i class="fa-solid fa-arrow-left"></i> Назад к разделу
+          </a>
+          {% if g.user and g.user.is_admin() %}
+            <a href="{{ url_for('admin_article_edit', article_id=article.id) }}" class="btn btn-primary">
+              <i class="fa-solid fa-pen-to-square"></i> Редактировать
+            </a>
+          {% endif %}
+        </div>
+      </article>
+    </main>
+
+    <aside class="article-sidebar">
+      <div class="sidebar-widget">
+        <h4><i class="fa-solid fa-phone"></i> Связаться с нами</h4>
+        <p>Есть вопросы? Позвоните на горячую линию — бесплатно и круглосуточно.</p>
+        <a href="tel:88001234567" class="btn btn-primary btn-block">8-800-123-45-67</a>
+      </div>
+      <div class="sidebar-widget">
+        <h4><i class="fa-solid fa-newspaper"></i> Последние новости</h4>
+        <ul class="sidebar-list">
+          {% for a in recent_news %}
+            <li><a href="{{ url_for('article_detail', article_id=a.id) }}">{{ a.title | truncate(60) }}</a></li>
+          {% else %}
+            <li><a href="{{ url_for('news') }}">Смотреть все новости</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="sidebar-widget">
+        <h4><i class="fa-solid fa-link"></i> Быстрые ссылки</h4>
+        <ul class="sidebar-list">
+          <li><a href="{{ url_for('deposits') }}"><i class="fa-solid fa-piggy-bank"></i> Вклады</a></li>
+          <li><a href="{{ url_for('credits') }}"><i class="fa-solid fa-credit-card"></i> Кредиты</a></li>
+          <li><a href="{{ url_for('services') }}"><i class="fa-solid fa-briefcase"></i> Услуги</a></li>
+          <li><a href="{{ url_for('contact') }}"><i class="fa-solid fa-envelope"></i> Контакты</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}403 — Доступ запрещён — ФинансБанк{% endblock %}
+{% block content %}
+<section class="error-section">
+  <div class="container error-wrap">
+    <div class="error-code">403</div>
+    <div class="error-msg">Доступ запрещён</div>
+    <p>У вас нет прав для просмотра этой страницы.</p>
+    <a href="{{ url_for('index') }}" class="btn btn-primary"><i class="fa-solid fa-house"></i> На главную</a>
+  </div>
+</section>
+{% endblock %}

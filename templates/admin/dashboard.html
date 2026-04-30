@@ -1,0 +1,76 @@
+{% extends 'admin/base_admin.html' %}
+{% block title %}Дашборд — Администрация{% endblock %}
+
+{% block admin_content %}
+<div class="admin-page-header">
+  <h1><i class="fa-solid fa-gauge"></i> Дашборд</h1>
+  <p>Добро пожаловать, <strong>{{ g.user.username }}</strong></p>
+</div>
+
+<div class="admin-stats">
+  <div class="admin-stat-card">
+    <i class="fa-solid fa-file-alt"></i>
+    <div>
+      <div class="stat-big">{{ total_articles }}</div>
+      <div>Статей</div>
+    </div>
+  </div>
+  <div class="admin-stat-card">
+    <i class="fa-solid fa-users"></i>
+    <div>
+      <div class="stat-big">{{ total_users }}</div>
+      <div>Пользователей</div>
+    </div>
+  </div>
+  <div class="admin-stat-card {% if unread_msgs %}stat-alert{% endif %}">
+    <i class="fa-solid fa-inbox"></i>
+    <div>
+      <div class="stat-big">{{ unread_msgs }}</div>
+      <div>Непрочитанных сообщений</div>
+    </div>
+  </div>
+</div>
+
+<div class="admin-section">
+  <div class="admin-section-header">
+    <h2>Последние статьи</h2>
+    <a href="{{ url_for('admin_article_new') }}" class="btn btn-primary btn-sm">
+      <i class="fa-solid fa-plus"></i> Создать
+    </a>
+  </div>
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Заголовок</th>
+        <th>Раздел</th>
+        <th>Автор</th>
+        <th>Дата</th>
+        <th>Статус</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for a in recent_articles %}
+      <tr>
+        <td>{{ a.id }}</td>
+        <td><a href="{{ url_for('article_detail', article_id=a.id) }}">{{ a.title | truncate(50) }}</a></td>
+        <td><span class="badge badge-section">{{ a.section }}</span></td>
+        <td>{{ a.author.username }}</td>
+        <td>{{ a.created_at.strftime('%d.%m.%Y') }}</td>
+        <td>
+          {% if a.published %}
+            <span class="badge badge-success">Опубликовано</span>
+          {% else %}
+            <span class="badge badge-warning">Черновик</span>
+          {% endif %}
+        </td>
+        <td>
+          <a href="{{ url_for('admin_article_edit', article_id=a.id) }}" class="btn btn-xs btn-outline">Ред.</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

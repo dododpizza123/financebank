@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block title %}Карта сайта — ФинансБанк{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="{{ url_for('index') }}">Главная</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span>Карта сайта</span>
+    </div>
+    <h1><i class="fa-solid fa-sitemap"></i> Карта сайта</h1>
+    <p>Полная структура разделов и страниц ФинансБанка</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="sitemap-grid">
+
+      <div class="sitemap-section">
+        <h3><i class="fa-solid fa-house"></i> Главная</h3>
+        <ul>
+          <li><a href="{{ url_for('index') }}">Главная страница</a></li>
+          <li><a href="{{ url_for('search') }}">Поиск по сайту</a></li>
+        </ul>
+      </div>
+
+      <div class="sitemap-section">
+        <h3><i class="fa-solid fa-piggy-bank"></i> Вклады и депозиты</h3>
+        <ul>
+          <li><a href="{{ url_for('deposits') }}">Все вклады</a></li>
+          <li><a href="{{ url_for('deposits') }}">Вклад «Надёжный» — 12%</a></li>
+          <li><a href="{{ url_for('deposits') }}">Вклад «Прогрессивный» — до 14%</a></li>
+          <li><a href="{{ url_for('deposits') }}">Детский вклад «Будущее»</a></li>
+          <li><a href="{{ url_for('deposits') }}">Накопительный счёт «Онлайн»</a></li>
+          <li><a href="{{ url_for('deposits') }}">Валютный депозит</a></li>
+        </ul>
+      </div>
+
+      <div class="sitemap-section">
+        <h3><i class="fa-solid fa-credit-card"></i> Кредиты</h3>
+        <ul>
+          <li><a href="{{ url_for('credits') }}">Все кредиты</a></li>
+          <li><a href="{{ url_for('credits') }}">Потребительский кредит</a></li>
+          <li><a href="{{ url_for('credits') }}">Ипотека «Семейная»</a></li>
+          <li><a href="{{ url_for('credits') }}">Автокредит «Движение»</a></li>
+          <li><a href="{{ url_for('credits') }}">Кредитная карта «Кэшбэк Про»</a></li>
+          <li><a href="{{ url_for('credits') }}">Рефинансирование</a></li>
+        </ul>
+      </div>
+
+      <div class="sitemap-section">
+        <h3><i class="fa-solid fa-briefcase"></i> Услуги</h3>
+        <ul>
+          <li><a href="{{ url_for('services') }}">Все услуги</a></li>
+          <li><a href="{{ url_for('services') }}">Дебетовая карта «Максимум»</a></li>
+          <li><a href="{{ url_for('services') }}">Мобильное приложение</a></li>
+          <li><a href="{{ url_for('services') }}">РКО для бизнеса</a></li>
+          <li><a href="{{ url_for('services') }}">Эквайринг</a></li>
+          <li><a href="{{ url_for('services') }}">Страхование</a></li>
+        </ul>
+      </div>
+
+      <div class="sitemap-section">
+        <h3><i class="fa-solid fa-newspaper"></i> Новости</h3>
+        <ul>
+          <li><a href="{{ url_for('news') }}">Все новости</a></li>
+          <li><a href="{{ url_for('news') }}">Снижение ставки по ипотеке</a></li>
+          <li><a href="{{ url_for('news') }}">Открытие отделения на Арбате</a></li>
+          <li><a href="{{ url_for('news') }}">Рейтинг ruA+</a></li>
+          <li><a href="{{ url_for('news') }}">Приложение 2.0</a></li>
+          <li><a href="{{ url_for('news') }}">Партнёрство с Ozon Fintech</a></li>
+        </ul>
+      </div>
+
+      <div class="sitemap-section">
+        <h3><i class="fa-solid fa-building-columns"></i> О банке</h3>
+        <ul>
+          <li><a href="{{ url_for('about') }}">О банке</a></li>
+          <li><a href="{{ url_for('about') }}">История</a></li>
+          <li><a href="{{ url_for('about') }}">Миссия и ценности</a></li>
+          <li><a href="{{ url_for('about') }}">Руководство</a></li>
+          <li><a href="{{ url_for('about') }}">Лицензии</a></li>
+          <li><a href="{{ url_for('about') }}">КСО</a></li>
+        </ul>
+      </div>
+
+      <div class="sitemap-section">
+        <h3><i class="fa-solid fa-circle-user"></i> Личный кабинет</h3>
+        <ul>
+          <li><a href="{{ url_for('login') }}">Вход в систему</a></li>
+          <li><a href="{{ url_for('register') }}">Регистрация</a></li>
+          <li><a href="{{ url_for('profile') }}">Профиль пользователя</a></li>
+        </ul>
+      </div>
+
+      <div class="sitemap-section">
+        <h3><i class="fa-solid fa-envelope"></i> Обратная связь</h3>
+        <ul>
+          <li><a href="{{ url_for('contact') }}">Форма обратной связи</a></li>
+          <li><a href="tel:88001234567">Горячая линия</a></li>
+          <li><a href="mailto:info@finansbank.ru">Email поддержки</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

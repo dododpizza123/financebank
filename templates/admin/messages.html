@@ -1,0 +1,41 @@
+{% extends 'admin/base_admin.html' %}
+{% block title %}Сообщения — Администрация{% endblock %}
+
+{% block admin_content %}
+<div class="admin-page-header">
+  <h1><i class="fa-solid fa-inbox"></i> Входящие сообщения</h1>
+</div>
+
+{% if messages %}
+  <div class="messages-list">
+    {% for msg in messages %}
+    <div class="msg-card {% if not msg.is_read %}msg-unread{% endif %}">
+      <div class="msg-meta">
+        <strong>{{ msg.name }}</strong>
+        <a href="mailto:{{ msg.email }}">{{ msg.email }}</a>
+        <span>{{ msg.created_at.strftime('%d.%m.%Y %H:%M') }}</span>
+        {% if not msg.is_read %}
+          <span class="badge badge-warning">Новое</span>
+        {% else %}
+          <span class="badge badge-success">Прочитано</span>
+        {% endif %}
+      </div>
+      <div class="msg-subject"><strong>Тема:</strong> {{ msg.subject }}</div>
+      <div class="msg-body">{{ msg.body }}</div>
+      {% if not msg.is_read %}
+        <form method="post" action="{{ url_for('admin_message_read', msg_id=msg.id) }}" style="margin-top:.5rem;">
+          <button type="submit" class="btn btn-sm btn-outline">
+            <i class="fa-solid fa-check"></i> Отметить прочитанным
+          </button>
+        </form>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="empty-state">
+    <i class="fa-solid fa-inbox"></i>
+    <p>Нет входящих сообщений.</p>
+  </div>
+{% endif %}
+{% endblock %}

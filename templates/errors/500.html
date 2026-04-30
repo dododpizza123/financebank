@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}500 — Ошибка сервера — ФинансБанк{% endblock %}
+{% block content %}
+<section class="error-section">
+  <div class="container error-wrap">
+    <div class="error-code">500</div>
+    <div class="error-msg">Внутренняя ошибка сервера</div>
+    <p>Что-то пошло не так. Мы уже работаем над решением проблемы.</p>
+    <a href="{{ url_for('index') }}" class="btn btn-primary"><i class="fa-solid fa-house"></i> На главную</a>
+  </div>
+</section>
+{% endblock %}

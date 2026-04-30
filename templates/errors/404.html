@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}404 — Страница не найдена — ФинансБанк{% endblock %}
+{% block content %}
+<section class="error-section">
+  <div class="container error-wrap">
+    <div class="error-code">404</div>
+    <div class="error-msg">Страница не найдена</div>
+    <p>Запрошенная страница не существует или была удалена.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;">
+      <a href="{{ url_for('index') }}" class="btn btn-primary"><i class="fa-solid fa-house"></i> На главную</a>
+      <a href="{{ url_for('sitemap') }}" class="btn btn-outline"><i class="fa-solid fa-sitemap"></i> Карта сайта</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

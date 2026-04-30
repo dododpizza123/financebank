@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block title %}Контакты — ФинансБанк{% endblock %}
+
+{% block content %}
+<section class="page-hero page-hero-contact">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="{{ url_for('index') }}">Главная</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span>Контакты</span>
+    </div>
+    <h1><i class="fa-solid fa-envelope"></i> Контакты</h1>
+    <p>Свяжитесь с нами любым удобным способом</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container contact-layout">
+    <div class="contact-info">
+      <h2>Реквизиты и контакты</h2>
+      <div class="contact-cards">
+        <div class="contact-card">
+          <i class="fa-solid fa-phone"></i>
+          <div>
+            <strong>Горячая линия</strong>
+            <a href="tel:88001234567">8-800-123-45-67</a>
+            <small>Бесплатно, круглосуточно</small>
+          </div>
+        </div>
+        <div class="contact-card">
+          <i class="fa-solid fa-phone"></i>
+          <div>
+            <strong>Москва</strong>
+            <a href="tel:+74951234567">+7 (495) 123-45-67</a>
+            <small>Пн–Пт: 9:00–21:00</small>
+          </div>
+        </div>
+        <div class="contact-card">
+          <i class="fa-solid fa-envelope"></i>
+          <div>
+            <strong>Email</strong>
+            <a href="mailto:info@finansbank.ru">info@finansbank.ru</a>
+            <small>Ответим в течение 24 часов</small>
+          </div>
+        </div>
+        <div class="contact-card">
+          <i class="fa-solid fa-location-dot"></i>
+          <div>
+            <strong>Головной офис</strong>
+            <span>г. Москва, ул. Тверская, д. 1</span>
+            <small>Пн–Пт: 9:00–18:00</small>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:2rem;">Реквизиты банка</h3>
+      <table class="info-table">
+        <tr><td>Полное наименование:</td><td>ООО «ФинансБанк»</td></tr>
+        <tr><td>БИК:</td><td>044525731</td></tr>
+        <tr><td>ИНН:</td><td>7701234567</td></tr>
+        <tr><td>КПП:</td><td>770101001</td></tr>
+        <tr><td>Корр. счёт:</td><td>30101810400000000731</td></tr>
+        <tr><td>Лицензия ЦБ РФ:</td><td>№ 3147 от 14.03.1996</td></tr>
+      </table>
+    </div>
+
+    <div class="contact-form-wrap">
+      <h2>Написать нам</h2>
+      <form method="post" class="contact-form">
+        <div class="form-group">
+          <label for="name">Ваше имя *</label>
+          <input type="text" id="name" name="name" required placeholder="Иван Иванов">
+        </div>
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" required placeholder="ivan@mail.ru">
+        </div>
+        <div class="form-group">
+          <label for="subject">Тема *</label>
+          <input type="text" id="subject" name="subject" required placeholder="Вопрос по вкладу">
+        </div>
+        <div class="form-group">
+          <label for="body">Сообщение *</label>
+          <textarea id="body" name="body" rows="5" required placeholder="Опишите ваш вопрос…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">
+          <i class="fa-solid fa-paper-plane"></i> Отправить сообщение
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

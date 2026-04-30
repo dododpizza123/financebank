@@ -1,0 +1,55 @@
+{% extends 'admin/base_admin.html' %}
+{% block title %}{% if article %}Редактировать{% else %}Новая статья{% endif %} — Администрация{% endblock %}
+
+{% block admin_content %}
+<div class="admin-page-header">
+  <h1>
+    <i class="fa-solid fa-{% if article %}pen-to-square{% else %}plus{% endif %}"></i>
+    {% if article %}Редактировать статью{% else %}Новая статья{% endif %}
+  </h1>
+  <a href="{{ url_for('admin_articles') }}" class="btn btn-outline">
+    <i class="fa-solid fa-arrow-left"></i> К списку
+  </a>
+</div>
+
+<div class="admin-form-wrap">
+  <form method="post" class="admin-form">
+    <div class="form-group">
+      <label for="title">Заголовок *</label>
+      <input type="text" id="title" name="title" required
+             value="{{ article.title if article else '' }}"
+             placeholder="Название статьи">
+    </div>
+
+    <div class="form-group">
+      <label for="section">Раздел *</label>
+      <select id="section" name="section" required>
+        <option value="">— Выберите раздел —</option>
+        {% for key, label in [('deposits','Вклады'),('credits','Кредиты'),('services','Услуги'),('news','Новости'),('about','О банке')] %}
+          <option value="{{ key }}" {% if article and article.section == key %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="body">Содержание * <small>(допускается HTML)</small></label>
+      <textarea id="body" name="body" rows="14" required
+                placeholder="Текст статьи (можно использовать HTML-теги)">{{ article.body if article else '' }}</textarea>
+    </div>
+
+    <div class="form-group form-check">
+      <input type="checkbox" id="published" name="published"
+             {% if not article or article.published %}checked{% endif %}>
+      <label for="published">Опубликовать</label>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+        <i class="fa-solid fa-floppy-disk"></i>
+        {% if article %}Сохранить изменения{% else %}Создать статью{% endif %}
+      </button>
+      <a href="{{ url_for('admin_articles') }}" class="btn btn-outline">Отмена</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

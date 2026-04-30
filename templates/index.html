@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% block title %}ФинансБанк — Главная{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="container hero-content">
+    <div class="hero-text">
+      <div class="hero-badge"><i class="fa-solid fa-shield-halved"></i> Надёжный банк с 1996 года</div>
+      <h1 class="hero-title">Финансы, которым<br><span class="accent">доверяют</span> миллионы</h1>
+      <p class="hero-sub">2,5 млн клиентов · 180 отделений по России · Вклады застрахованы АСВ</p>
+      <div class="hero-cta">
+        <a href="{{ url_for('deposits') }}" class="btn btn-primary btn-lg">
+          <i class="fa-solid fa-piggy-bank"></i> Открыть вклад
+        </a>
+        <a href="{{ url_for('credits') }}" class="btn btn-outline-white btn-lg">
+          <i class="fa-solid fa-credit-card"></i> Взять кредит
+        </a>
+      </div>
+    </div>
+    <div class="hero-card-wrap">
+      <div class="bank-card">
+        <div class="card-top">
+          <span class="card-bank">ФинансБанк</span>
+          <i class="fa-solid fa-landmark card-logo-icon"></i>
+        </div>
+        <div class="card-chip"><i class="fa-solid fa-microchip"></i></div>
+        <div class="card-number">•••• •••• •••• 4782</div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-label">ДЕРЖАТЕЛЬ</div>
+            <div class="card-value">IVAN PETROV</div>
+          </div>
+          <div>
+            <div class="card-label">ДЕЙСТВУЕТ ДО</div>
+            <div class="card-value">12/28</div>
+          </div>
+          <div class="card-paypass"><i class="fa-solid fa-wifi"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="container stats-grid">
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+      <div class="stat-num">2,5 млн</div>
+      <div class="stat-label">Клиентов</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fa-solid fa-building"></i></div>
+      <div class="stat-num">180</div>
+      <div class="stat-label">Отделений</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fa-solid fa-calendar"></i></div>
+      <div class="stat-num">30 лет</div>
+      <div class="stat-label">На рынке</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fa-solid fa-star"></i></div>
+      <div class="stat-num">ruA+</div>
+      <div class="stat-label">Рейтинг «Эксперт РА»</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-section section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Наши продукты</h2>
+      <p>Полный спектр банковских услуг для физических и юридических лиц</p>
+    </div>
+    <div class="products-grid">
+      <a href="{{ url_for('deposits') }}" class="product-card product-deposits">
+        <div class="product-icon"><i class="fa-solid fa-piggy-bank"></i></div>
+        <h3>Вклады</h3>
+        <p>До <strong>14%</strong> годовых. Срочные, накопительные, валютные депозиты.</p>
+        <span class="product-link">Подробнее <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a href="{{ url_for('credits') }}" class="product-card product-credits">
+        <div class="product-icon"><i class="fa-solid fa-credit-card"></i></div>
+        <h3>Кредиты</h3>
+        <p>Ипотека от <strong>6%</strong>, потребительские кредиты и кредитные карты.</p>
+        <span class="product-link">Подробнее <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a href="{{ url_for('services') }}" class="product-card product-services">
+        <div class="product-icon"><i class="fa-solid fa-briefcase"></i></div>
+        <h3>Услуги</h3>
+        <p>Интернет-банк, дебетовые карты, РКО, эквайринг и страхование.</p>
+        <span class="product-link">Подробнее <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="calc-section section">
+  <div class="container calc-wrap">
+    <div class="calc-info">
+      <h2>Калькулятор вклада</h2>
+      <p>Рассчитайте доходность за несколько секунд. Реальные ставки — без мелкого шрифта.</p>
+      <ul class="calc-features">
+        <li><i class="fa-solid fa-check"></i> Капитализация процентов</li>
+        <li><i class="fa-solid fa-check"></i> Ставки актуальны на 2026 год</li>
+        <li><i class="fa-solid fa-check"></i> Мгновенный расчёт</li>
+      </ul>
+    </div>
+    <div class="calculator">
+      <div class="calc-field">
+        <label>Сумма вклада</label>
+        <div class="calc-input-wrap">
+          <input type="range" id="calcAmount" min="10000" max="5000000" step="10000" value="100000">
+          <div class="calc-input-display">
+            <input type="number" id="calcAmountVal" value="100000" min="10000" max="5000000">
+            <span>₽</span>
+          </div>
+        </div>
+      </div>
+      <div class="calc-field">
+        <label>Срок (месяцев)</label>
+        <div class="calc-input-wrap">
+          <input type="range" id="calcMonths" min="1" max="36" step="1" value="12">
+          <div class="calc-input-display">
+            <input type="number" id="calcMonthsVal" value="12" min="1" max="36">
+            <span>мес.</span>
+          </div>
+        </div>
+      </div>
+      <div class="calc-field">
+        <label>Ставка: <strong id="calcRateLabel">12%</strong></label>
+        <select id="calcRate">
+          <option value="9.5">9,5% — Накопительный «Онлайн»</option>
+          <option value="10">10% — «Прогрессивный» (до 100 тыс.)</option>
+          <option value="11">11% — Детский «Будущее»</option>
+          <option value="12" selected>12% — «Надёжный»</option>
+          <option value="14">14% — «Прогрессивный» (от 500 тыс.)</option>
+        </select>
+      </div>
+      <div class="calc-result">
+        <div class="calc-result-row">
+          <span>Сумма в конце срока:</span>
+          <strong id="calcTotal">–</strong>
+        </div>
+        <div class="calc-result-row">
+          <span>Доход:</span>
+          <strong id="calcIncome" class="income-highlight">–</strong>
+        </div>
+      </div>
+      <a href="{{ url_for('deposits') }}" class="btn btn-primary btn-block">Открыть вклад</a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="news-section section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Последние новости</h2>
+      <a href="{{ url_for('news') }}" class="section-link">Все новости <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="news-grid">
+      {% for article in news %}
+      <article class="news-card">
+        <div class="news-date">
+          <i class="fa-regular fa-calendar"></i>
+          {{ article.created_at.strftime('%d.%m.%Y') }}
+        </div>
+        <h3 class="news-title">
+          <a href="{{ url_for('article_detail', article_id=article.id) }}">{{ article.title }}</a>
+        </h3>
+        <p class="news-excerpt">{{ article.body | striptags | truncate(120) }}</p>
+        <a href="{{ url_for('article_detail', article_id=article.id) }}" class="news-readmore">
+          Читать далее <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Почему выбирают ФинансБанк</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <h4>Надёжность</h4>
+        <p>30 лет на рынке, рейтинг ruA+ от «Эксперт РА», вклады застрахованы АСВ.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+        <h4>Технологии</h4>
+        <p>Современное мобильное приложение, интернет-банк и поддержка 24/7.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+        <h4>Выгодные условия</h4>
+        <p>Ставки по вкладам до 14%, кредиты от 12%, кэшбэк до 5% на карты.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><i class="fa-solid fa-headset"></i></div>
+        <h4>Поддержка</h4>
+        <p>Горячая линия круглосуточно, 180 отделений по всей России.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'admin/base_admin.html' %}
+{% block title %}Статьи — Администрация{% endblock %}
+
+{% block admin_content %}
+<div class="admin-page-header">
+  <h1><i class="fa-solid fa-file-alt"></i> Статьи</h1>
+  <a href="{{ url_for('admin_article_new') }}" class="btn btn-primary">
+    <i class="fa-solid fa-plus"></i> Новая статья
+  </a>
+</div>
+
+<table class="admin-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Заголовок</th>
+      <th>Раздел</th>
+      <th>Автор</th>
+      <th>Дата</th>
+      <th>Статус</th>
+      <th>Действия</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for a in articles %}
+    <tr>
+      <td>{{ a.id }}</td>
+      <td><a href="{{ url_for('article_detail', article_id=a.id) }}" target="_blank">{{ a.title | truncate(55) }}</a></td>
+      <td><span class="badge badge-section">{{ a.section }}</span></td>
+      <td>{{ a.author.username }}</td>
+      <td>{{ a.created_at.strftime('%d.%m.%Y') }}</td>
+      <td>
+        {% if a.published %}
+          <span class="badge badge-success">Опубликовано</span>
+        {% else %}
+          <span class="badge badge-warning">Черновик</span>
+        {% endif %}
+      </td>
+      <td class="actions-cell">
+        <a href="{{ url_for('admin_article_edit', article_id=a.id) }}" class="btn btn-xs btn-outline">
+          <i class="fa-solid fa-pen"></i>
+        </a>
+        <form method="post" action="{{ url_for('admin_article_delete', article_id=a.id) }}"
+              onsubmit="return confirm('Удалить статью «{{ a.title }}»?');" style="display:inline;">
+          <button type="submit" class="btn btn-xs btn-danger">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

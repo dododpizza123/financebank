@@ -1,0 +1,52 @@
+{% extends 'admin/base_admin.html' %}
+{% block title %}Пользователи — Администрация{% endblock %}
+
+{% block admin_content %}
+<div class="admin-page-header">
+  <h1><i class="fa-solid fa-users"></i> Пользователи</h1>
+  <a href="{{ url_for('admin_user_new') }}" class="btn btn-primary">
+    <i class="fa-solid fa-user-plus"></i> Новый пользователь
+  </a>
+</div>
+
+<table class="admin-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Логин</th>
+      <th>Email</th>
+      <th>Роль</th>
+      <th>Дата регистрации</th>
+      <th>Действия</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for u in users %}
+    <tr>
+      <td>{{ u.id }}</td>
+      <td><strong>{{ u.username }}</strong></td>
+      <td>{{ u.email }}</td>
+      <td>
+        <span class="badge {% if u.role == 'admin' %}badge-admin{% else %}badge-user{% endif %}">
+          {{ 'Администратор' if u.role == 'admin' else 'Клиент' }}
+        </span>
+      </td>
+      <td>{{ u.created_at.strftime('%d.%m.%Y') }}</td>
+      <td class="actions-cell">
+        <a href="{{ url_for('admin_user_edit', user_id=u.id) }}" class="btn btn-xs btn-outline">
+          <i class="fa-solid fa-pen"></i>
+        </a>
+        {% if u.id != g.user.id %}
+          <form method="post" action="{{ url_for('admin_user_delete', user_id=u.id) }}"
+                onsubmit="return confirm('Удалить пользователя {{ u.username }}?');" style="display:inline;">
+            <button type="submit" class="btn btn-xs btn-danger">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </form>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

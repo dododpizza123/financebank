@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Профиль — ФинансБанк{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container" style="max-width:700px;">
+    <h1><i class="fa-solid fa-circle-user"></i> Профиль пользователя</h1>
+    <div class="profile-card">
+      <div class="profile-avatar">
+        <i class="fa-solid fa-circle-user"></i>
+      </div>
+      <div class="profile-info">
+        <table class="info-table">
+          <tr><td>Имя пользователя:</td><td><strong>{{ g.user.username }}</strong></td></tr>
+          <tr><td>Email:</td><td>{{ g.user.email }}</td></tr>
+          <tr><td>Роль:</td><td>
+            <span class="badge {% if g.user.is_admin() %}badge-admin{% else %}badge-user{% endif %}">
+              {{ 'Администратор' if g.user.is_admin() else 'Клиент' }}
+            </span>
+          </td></tr>
+          <tr><td>Дата регистрации:</td><td>{{ g.user.created_at.strftime('%d.%m.%Y') }}</td></tr>
+        </table>
+        <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+          {% if g.user.is_admin() %}
+            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary">
+              <i class="fa-solid fa-shield-halved"></i> Панель администратора
+            </a>
+          {% endif %}
+          <a href="{{ url_for('logout') }}" class="btn btn-outline">
+            <i class="fa-solid fa-right-from-bracket"></i> Выйти
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
